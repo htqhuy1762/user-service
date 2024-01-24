@@ -2,7 +2,7 @@ const express = require('express');
 const { getHomepage, getABC, getHoidanit } = require('../controllers/homeController');
 const router = express.Router();
 
-// khai bao route
+// Route definition
 router.get('/', getHomepage);
 router.get('/abc', getABC);
 router.get('/hoidanit', getHoidanit);
