@@ -2,11 +2,15 @@ require('dotenv').config();
 const express = require('express');
 const configViewEngine = require('./config/viewEngine');
 const webRoutes = require('./routes/web');
-const mysql = require('mysql2');
+const connection = require('./config/database');
 
 const app = express(); //app express
 const port = process.env.PORT || 7777;
 const hostname = process.env.HOST_NAME; // => hardcode
+
+// config req.body
+app.use(express.json()); // Used to parse JSON bodies
+app.use(express.urlencoded()); //Parse URL-encoded bodies
 
 // config template engine
 configViewEngine(app); 
@@ -15,19 +19,12 @@ configViewEngine(app);
 app.use('/', webRoutes);
 
 // test connection
-const connection = mysql.createConnection({
-  host: 'localhost',
-  port: '3307', // default 3306
-  user: 'root', // default password: empty
-  password: '123456',
-  database: 'hoidanit'
-});
+
 
 connection.query(
   'select * from Users u', 
   function (error, results, fields) {
     console.log(">>> results= ", results);
-    console.log(">>> fields= ", fields);
   }
 );
 
