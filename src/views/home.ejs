@@ -7,35 +7,37 @@
     </head>
     <body>
         <div class="topnav">
-            <a class="active" href="#home">Home</a>
-            <a href="#news">News</a>
-            <a href="#contact">Contact</a>
-            <a href="#about">About</a>
+            <a class="active" href="/">Home</a>
+            <a href="/create">Create user</a>
         </div>
-        <div class="form-add-new">
-            <form action="/create-user" method="post">
-                <fieldset>
-                    <legend>Add new user</legend>
-                    <div class="input-group">
-                        <label>Email: </label>
-                        <input type="text" name="email"/>
-                    </div>
-
-                    <div class="input-group">
-                        <label>Name: </label>
-                        <input type="text" name="myname"/>
-                    </div>
-
-                    <div class="input-group">
-                        <label>City: </label>
-                        <input type="text" name="city"/>
-                    </div>
-
-                    <div>
-                        <button>Submit</button>
-                    </div>
-                </fieldset>
-            </form>
+        <div class="table-container">
+            <%= JSON.stringify(listUser) %>
+            <div class="title">List user</div>
+            <table>
+                <tr>
+                    <th>ID</th>
+                    <th>Email</th>
+                    <th>Name</th>
+                    <th>City</th>
+                    <th>Actions</th>
+                </tr>
+                <tr>
+                    <td>Peter</td>
+                    <td>Griffin</td>
+                    <td>$100</td>
+                    <td>$100</td>
+                    <td>
+                        <button>Edit</button>
+                        <button>Delete</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Lois</td>
+                    <td>Griffin</td>
+                    <td>$150</td>
+                    <td>$100</td>
+                </tr>
+            </table>
         </div>
     </body>
 </html>
