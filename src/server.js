@@ -13,15 +13,18 @@ app.use(express.json()); // Used to parse JSON bodies
 app.use(express.urlencoded()); //Parse URL-encoded bodies
 
 // config template engine
-configViewEngine(app); 
+configViewEngine(app);
 
 // use router
 app.use('/', webRoutes);
 
-// test connection
-connection();
-
-
-app.listen(port, hostname, () => {
-  console.log(`Example app listening on port ${port}`)
-});
+(async () => {
+    try {
+        await connection();
+        app.listen(port, hostname, () => {
+            console.log(`Backend zero app listening on port ${port}`);
+        });
+    } catch (error) {
+        console.log('>>> Error connect to DB: ', error);
+    }
+})();
