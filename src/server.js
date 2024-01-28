@@ -19,7 +19,7 @@ configViewEngine(app);
 app.use('/', webRoutes);
 
 // test connection
-
+connection();
 
 
 app.listen(port, hostname, () => {
