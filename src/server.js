@@ -3,6 +3,7 @@ const express = require('express');
 const configViewEngine = require('./config/viewEngine');
 const webRoutes = require('./routes/web');
 const connection = require('./config/database');
+const mongoose = require('mongoose');
 
 const app = express(); //app express
 const port = process.env.PORT || 7777;
@@ -17,6 +18,13 @@ configViewEngine(app);
 
 // use router
 app.use('/', webRoutes);
+
+const kittySchema = new mongoose.Schema({
+    name: String,
+});
+const Kitten = mongoose.model('Kitten', kittySchema);
+const cat = new Kitten({ name: 'Hoi dan IT cat' });
+cat.save();
 
 (async () => {
     try {
