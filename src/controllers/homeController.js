@@ -2,13 +2,15 @@ const connection = require('../config/database');
 const { getAllUsers, getUserById, updateUserById, deleteUserById } = require('../services/CRUDservice');
 
 const getHomepage = async (req, res) => {
-    let results = await getAllUsers();
+    let results = await User.find({});
     return res.render('home.ejs', { listUser: results });
 };
 
 const getABC = (req, res) => {
     res.send('Check ABC');
 };
+
+const User = require('../models/user');
 
 const getHoidanit = (req, res) => {
     res.render('sample.ejs');
@@ -19,11 +21,12 @@ const postCreateUser = async (req, res) => {
     let name = req.body.myname;
     let city = req.body.city;
 
-    let [results, fields] = await connection.query(`INSERT INTO Users (email, name, city) VALUES (?, ?, ?)`, [
+    await User.create({
         email,
         name,
         city,
-    ]);
+    });
+
     res.send('User created successfully!');
 };
 
