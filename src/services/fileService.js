@@ -1,40 +1,48 @@
-const path = require('path');
+const path = require("path");
 
 const uploadSingleFile = async (fileObject) => {
-    // Van de 3: upload multiple files
-
-    let uploadPath = path.resolve(__dirname, '../public/images/upload', fileObject.name);
+    
+    let uploadPath = path.resolve(__dirname, "../public/images/upload");
     let extName = path.extname(fileObject.name);
     let baseName = path.basename(fileObject.name, extName);
-    let finalName = `${baseName}-${Date.now()}${extName}`;
+
+    let finalName = `${baseName}-${Date.now()}${extName}`
     let finalPath = `${uploadPath}/${finalName}`;
+
 
     try {
         await fileObject.mv(finalPath);
         return {
             status: 'success',
             path: finalName,
-            error: null,
-        };
-    } catch (error) {
+            error: null
+        }
+    } catch (err) {
+        console.log(">>> check error: ", err)
         return {
             status: 'failed',
             path: null,
-            error: JSON.stringify(error),
-        };
+            error: JSON.stringify(err)
+        }
     }
-};
+}
 
 const uploadMultipleFiles = async (filesArr) => {
     try {
-        let uploadPath = path.resolve(__dirname, '../public/images/upload');
+        let uploadPath = path.resolve(__dirname, "../public/images/upload");
+
         let resultArr = [];
         let countSuccess = 0;
-        for (let i = 0; i < filesArr.length; ++i) {
+        for (let i = 0; i < filesArr.length; i++) {
+            console.log("check i = ", i)
+            
             let extName = path.extname(filesArr[i].name);
+
+            
             let baseName = path.basename(filesArr[i].name, extName);
 
-            let finalName = `${baseName}-${Date.now()}${extName}`;
+            
+            let finalName = `${baseName}-${Date.now()}${extName}`
             let finalPath = `${uploadPath}/${finalName}`;
 
             try {
@@ -43,29 +51,30 @@ const uploadMultipleFiles = async (filesArr) => {
                     status: 'success',
                     path: finalName,
                     fileName: filesArr[i].name,
-                    error: null,
-                });
+                    error: null
+                })
                 countSuccess++;
-            } catch (error) {
+            } catch (err) {
                 resultArr.push({
                     status: 'failed',
                     path: null,
                     fileName: filesArr[i].name,
-                    error: JSON.stringify(error),
-                });
+                    error: JSON.stringify(err)
+                })
             }
         }
 
         return {
             countSuccess: countSuccess,
-            details: resultArr,
-        };
+            detail: resultArr
+        }
+
     } catch (error) {
-        console.log(error);
+        console.log(error)
     }
-};
+
+}
 
 module.exports = {
-    uploadSingleFile,
-    uploadMultipleFiles,
-};
+    uploadSingleFile, uploadMultipleFiles
+}
