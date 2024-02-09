@@ -8,7 +8,7 @@ const {
     postUploadSingleFileAPI,
     postUploadMultipleFilesAPI,
 } = require('../controllers/apiController');
-const { postCreateCustomerAPI, postCreateArrayCustomerAPI } = require('../controllers/customerController');
+const { postCreateCustomerAPI, postCreateArrayCustomerAPI, getCustomersAPI } = require('../controllers/customerController');
 
 routerAPI.get('/users', getUsersAPI);
 routerAPI.post('/users', postCreateUserAPI);
@@ -20,5 +20,6 @@ routerAPI.post('/files', postUploadMultipleFilesAPI);
 
 routerAPI.post('/customers', postCreateCustomerAPI);
 routerAPI.post('/customers-many', postCreateArrayCustomerAPI);
+routerAPI.get('/customers', getCustomersAPI);
 
 module.exports = routerAPI; // export default

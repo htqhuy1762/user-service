@@ -1,5 +1,5 @@
 const { uploadSingleFile } = require('../services/fileService');
-const { createCustomerService, createArrayCustomerService } = require('../services/customerService');
+const { createCustomerService, createArrayCustomerService, getCustomersService } = require('../services/customerService');
 
 module.exports = {
     postCreateCustomerAPI: async (req, res) => {
@@ -36,5 +36,12 @@ module.exports = {
                 data: customerArr,
             });
         }
+    },
+    getCustomersAPI: async (req, res) => {
+        let customers = await getCustomersService();
+        return res.status(200).json({
+            EC: 0,
+            data: customers,
+        });
     },
 };
