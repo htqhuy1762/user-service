@@ -27,9 +27,15 @@ const createArrayCustomerService = async (arr) => {
     }
 };
 
-const getCustomersService = async () => {
+const getCustomersService = async (limit, page) => {
     try {
-        let result = await Customer.find({});
+        let result = null;
+        if (limit && page) {
+            let offset = (page - 1) * limit;
+            result = await Customer.find({}).skip(offset).limit(limit).exec();
+        } else {
+            result = await Customer.find({});
+        }
         return result;
     } catch (error) {
         console.log('Error when get customers:', error);
@@ -58,12 +64,26 @@ const updateCustomerService = async (customerID, name, email, address) => {
 
 const deleteCustomerService = async (customerID) => {
     try {
-        let result = await Customer.deleteById({
+        let result = await Customer.findByHoiDanIT({
             _id: customerID,
         });
         return result;
     } catch (error) {
         console.log('Error when update customer:', error);
+        return null;
+    }
+};
+
+const deleteCustomersService = async (idArr) => {
+    try {
+        let result = await Customer.delete({
+            _id: {
+                $in: idArr,
+            },
+        });
+        return result;
+    } catch (error) {
+        console.log('Error when delete customers:', error);
         return null;
     }
 };
@@ -74,4 +94,5 @@ module.exports = {
     getCustomersService,
     updateCustomerService,
     deleteCustomerService,
+    deleteCustomersService,
 };

@@ -5,6 +5,7 @@ const {
     getCustomersService,
     updateCustomerService,
     deleteCustomerService,
+    deleteCustomersService,
 } = require('../services/customerService');
 
 module.exports = {
@@ -44,10 +45,17 @@ module.exports = {
         }
     },
     getCustomersAPI: async (req, res) => {
-        let customers = await getCustomersService();
+        const limit = req.query.limit;
+        const page = req.query.page;
+        let result = null;
+        if (limit && page) {
+            result = await getCustomersService(limit, page);
+        } else {
+            result = await getCustomersService();
+        }
         return res.status(200).json({
             EC: 0,
-            data: customers,
+            data: result,
         });
     },
     putUpdateCustomerAPI: async (req, res) => {
@@ -67,6 +75,14 @@ module.exports = {
     deleteACustomerAPI: async (req, res) => {
         let id = req.body.customerID;
         let result = await deleteCustomerService(id);
+        return res.status(200).json({
+            EC: 0,
+            data: result,
+        });
+    },
+    deleteCustomersAPI: async (req, res) => {
+        let idArr = req.body.customersId;
+        let result = await deleteCustomersService(idArr);
         return res.status(200).json({
             EC: 0,
             data: result,
