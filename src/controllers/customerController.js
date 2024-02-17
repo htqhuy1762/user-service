@@ -49,7 +49,7 @@ module.exports = {
         const page = req.query.page;
         let result = null;
         if (limit && page) {
-            result = await getCustomersService(limit, page);
+            result = await getCustomersService(limit, page, req.query);
         } else {
             result = await getCustomersService();
         }
