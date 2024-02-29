@@ -17,6 +17,8 @@ const {
     deleteCustomersAPI,
 } = require('../controllers/customerController');
 
+const { postCreateProjectAPI } = require('../controllers/projectController');
+
 routerAPI.get('/users', getUsersAPI);
 routerAPI.post('/users', postCreateUserAPI);
 routerAPI.put('/users', putUpdateUserAPI);
@@ -39,5 +41,8 @@ routerAPI.get('/info', (req, res) => {
 routerAPI.get('/info/:name/:address', (req, res) => {
     return res.status(200).json({ data: req.params });
 });
+
+
+routerAPI.post('/projects', postCreateProjectAPI);
 
 module.exports = routerAPI; // export default
