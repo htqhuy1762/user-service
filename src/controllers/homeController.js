@@ -47,7 +47,7 @@ const postUpdateUser = async (req, res) => {
     let city = req.body.city;
 
     await User.updateOne({ _id: userId }, { email, name, city });
-    
+
     res.redirect('/');
 };
 

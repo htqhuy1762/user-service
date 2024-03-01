@@ -29,19 +29,19 @@ app.use('/v1/api/', apiRoutes);
 (async () => {
     try {
         // using mongoose
-        // await connection();
+        await connection();
 
         // using mongodb driver
         // Connection URL
-        const url = process.env.DB_HOST_WITH_DRIVER;
-        const client = new MongoClient(url);
-        // Database Name
-        const dbName = process.env.DB_NAME;
+        // const url = process.env.DB_HOST_WITH_DRIVER;
+        // const client = new MongoClient(url);
+        // // Database Name
+        // const dbName = process.env.DB_NAME;
 
-        await client.connect();
-        console.log('Connected successfully to server');
-        const db = client.db(dbName);
-        const collection = db.collection('customers');
+        // await client.connect();
+        // console.log('Connected successfully to server');
+        // const db = client.db(dbName);
+        // const collection = db.collection('customers');
 
         //collection.insertOne({ name: 'Eric' });
 
