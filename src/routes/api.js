@@ -17,7 +17,14 @@ const {
     deleteCustomersAPI,
 } = require('../controllers/customerController');
 
-const { postCreateProjectAPI, getProjectsAPI } = require('../controllers/projectController');
+const {
+    postCreateProjectAPI,
+    getProjectsAPI,
+    putUpdateProjectAPI,
+    deleteProjectAPI,
+} = require('../controllers/projectController');
+
+const { postCreateTaskAPI, getTasksAPI, putUpdateTaskAPI, deleteTaskAPI } = require('../controllers/taskController');
 
 routerAPI.get('/users', getUsersAPI);
 routerAPI.post('/users', postCreateUserAPI);
@@ -42,8 +49,14 @@ routerAPI.get('/info/:name/:address', (req, res) => {
     return res.status(200).json({ data: req.params });
 });
 
-
 routerAPI.post('/projects', postCreateProjectAPI);
 routerAPI.get('/projects', getProjectsAPI);
+routerAPI.put('/projects', putUpdateProjectAPI);
+routerAPI.delete('/projects', deleteProjectAPI);
+
+routerAPI.post('/tasks', postCreateTaskAPI);
+routerAPI.get('/tasks', getTasksAPI);
+routerAPI.put('/tasks', putUpdateTaskAPI);
+routerAPI.delete('/tasks', deleteTaskAPI);
 
 module.exports = routerAPI; // export default

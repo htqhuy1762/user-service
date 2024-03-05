@@ -19,22 +19,22 @@ const taskSchema = new mongoose.Schema(
     {
         name: {
             type: String,
-            required: true
+            required: true,
         },
         description: String,
         status: String,
         startDate: String,
         endDate: String,
         usersInfo: userSchema,
-        projectInfo: projectSchema
+        projectInfo: projectSchema,
     },
     {
         timestamps: true, // createdAt, updatedAt
-    }
+    },
 );
 
 // Override all methods
 taskSchema.plugin(mongoose_delete, { overrideMethods: 'all' });
-const Task = mongoose.model('Task', taskSchema);
+const Task = mongoose.model('task', taskSchema);
 
 module.exports = Task;
